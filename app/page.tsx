@@ -12,6 +12,8 @@ import AboutSection from "@/components/sections/about-section"
 import ComplianceBenefits from "@/components/sections/compliance-benefits"
 import ImpactAreas from "@/components/sections/impact-areas"
 import StrategicApproach from "@/components/sections/strategic-approach"
+
+
 export default function Home() {
   return (
     <div>
