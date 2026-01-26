@@ -11,9 +11,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Madison - Technology Consulting & AI Solutions",
+  title: "Nova",
   description:
-    "Empowering businesses with innovative technology solutions, driving efficiency and growth across various industries.",
+    "Connecting People, Creating Value",
     generator: 'v0.app'
 }
 
