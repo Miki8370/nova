@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Mail, Linkedin, Twitter, Facebook, Instagram } from "lucide-react"
+import Image from "next/image"
 
 const socialLinks = [
   {
@@ -32,7 +33,18 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
+            <Link href="/" className="flex items-center flex-shrink-0">
+            <Image
+                src="/nova_logo.png"
+                alt="Nova HR Logo"
+                width={2400}
+                height={960}
+                priority
+                className="h-12 md:h-16 w-auto"
+              />
+          </Link>
             <h3 className="text-lg font-semibold">Nova HR</h3>
+            
             <p className="text-sm text-muted-foreground">
               Strategic Human Resource Management for Sustainable Growth
             </p>

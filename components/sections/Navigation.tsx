@@ -1,6 +1,9 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -43,60 +46,107 @@ const services = [
   },
 ]
 
+const events = [
+  {
+    title: 'Upcoming Events',
+    description: 'Explore our latest HR events and networking sessions',
+    href: '/event',
+  },
+]
+
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold text-lg">Nova HR</span>
-        </Link>
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-border/40' : 'bg-transparent'
+      }`}
+    >
+      <div className="container mx-auto px-4">
+      <div className="flex items-center justify-between h-20">
+  <Link href="/" className="flex items-center flex-shrink-0">
+    <Image
+      src="/nova_logo.png"
+      alt="Nova HR Logo"
+      width={240}
+      height={96}
+      priority
+      className="h-20 md:h-24 w-auto" // Matches or slightly exceeds nav height
+    />
+  </Link>
 
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1">
-                  Home
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    {services.map((service) => (
+                      <Link
+                        key={service.title}
+                        href={service.href}
+                        legacyBehavior
+                        passHref
+                      >
+                        <NavigationMenuLink asChild>
+                          <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
+                            <h4 className="text-sm font-semibold leading-none mb-1">
+                              {service.title}
+                            </h4>
+                            <p className="text-xs text-muted-foreground">
+                              {service.description}
+                            </p>
+                          </div>
+                        </NavigationMenuLink>
+                      </Link>
+                    ))}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Services</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {services.map((service) => (
-                    <Link
-                      key={service.title}
-                      href={service.href}
-                      legacyBehavior
-                      passHref
-                    >
-                      <NavigationMenuLink asChild>
-                        <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
-                          <h4 className="text-sm font-semibold leading-none mb-1">
-                            {service.title}
-                          </h4>
-                          <p className="text-xs text-muted-foreground">
-                            {service.description}
-                          </p>
-                        </div>
-                      </NavigationMenuLink>
-                    </Link>
-                  ))}
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Events</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    {events.map((event) => (
+                      <Link
+                        key={event.title}
+                        href={event.href}
+                        legacyBehavior
+                        passHref
+                      >
+                        <NavigationMenuLink asChild>
+                          <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
+                            <h4 className="text-sm font-semibold leading-none mb-1">
+                              {event.title}
+                            </h4>
+                            <p className="text-xs text-muted-foreground">
+                              {event.description}
+                            </p>
+                          </div>
+                        </NavigationMenuLink>
+                      </Link>
+                    ))}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
 
-            <NavigationMenuItem>
-              <Link href="/contact" legacyBehavior passHref>
-                <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1">
-                  Contact
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+          <Button asChild>
+            <Link href="/contact">Contact Us</Link>
+          </Button>
+        </div>
       </div>
     </header>
   )

@@ -1,4 +1,3 @@
-"use client"
 
 import Navigation from "@/components/sections/Navigation"
 import Hero from "@/components/sections/Hero"
@@ -12,6 +11,8 @@ import AboutSection from "@/components/sections/about-section"
 import ComplianceBenefits from "@/components/sections/compliance-benefits"
 import ImpactAreas from "@/components/sections/impact-areas"
 import StrategicApproach from "@/components/sections/strategic-approach"
+import EventsPreview from "@/components/sections/event-preview"
+import EventsPreviewWrapper from "@/components/sections/EventsPreviewServer"
 
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero />
       <AboutSection />
       <TrustedBy />
+      <EventsPreview />
       <ServicesPreview />
       <ComplianceBenefits />
       <ImpactAreas />
