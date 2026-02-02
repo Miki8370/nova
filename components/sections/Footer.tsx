@@ -37,8 +37,8 @@ export default function Footer() {
             <Image
                 src="/nova_logo.png"
                 alt="Nova HR Logo"
-                width={2400}
-                height={960}
+                width={240}
+                height={96}
                 priority
                 className="h-12 md:h-16 w-auto"
               />
