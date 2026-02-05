@@ -9,9 +9,9 @@ const contactInfo = [
   {
     title: "Email",
     description: "Get in touch via email",
-    value: "contact@novahr.com",
+    value: "info@novahrsm.com",
     icon: Mail,
-    href: "mailto:contact@novahr.com",
+    href: "info@novahrsm.com",
   },
   {
     title: "Phone",
@@ -23,7 +23,7 @@ const contactInfo = [
   {
     title: "Office Location",
     description: "Visit us at our headquarters",
-    value: "Lagos, Nigeria",
+    value: "Adiss Ababa, Ethiopia",
     icon: MapPin,
     href: "#",
   },

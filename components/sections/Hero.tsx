@@ -38,7 +38,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           >
-            Connecting People, Creating Value
+            Nova HR Supply & Management PLC
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

@@ -79,16 +79,7 @@ export default function Footer() {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link href="/amenities" className="text-sm text-muted-foreground hover:text-primary">
-                  Amenities
-                </Link>
-              </li>
-              <li>
-                <Link href="/pricing" className="text-sm text-muted-foreground hover:text-primary">
-                  Pricing
-                </Link>
-              </li>
+              
               <li>
                 <Link href="/contact" className="text-sm text-muted-foreground hover:text-primary">
                   Contact
@@ -128,9 +119,9 @@ export default function Footer() {
             </p>
             <ul className="space-y-2">
               <li>
-                <Link href="mailto:contact@novahr.com" className="text-sm text-muted-foreground hover:text-primary flex items-center gap-2">
+                <Link href="info@novahrsm.com" className="text-sm text-muted-foreground hover:text-primary flex items-center gap-2">
                   <Mail className="w-4 h-4" />
-                  contact@novahr.com
+                  info@novahr.com
                 </Link>
               </li>
             </ul>
