@@ -9,7 +9,7 @@ export default async function EventsPreview() {
   if (!previewEvents.length) return null
 
   return (
-    <section className="mt-16 px-4 sm:px-6 lg:px-8">
+    <section id="events" className="mt-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col items-center justify-between gap-4 sm:flex-row sm:items-center">
         <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">

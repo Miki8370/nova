@@ -12,15 +12,17 @@ import ComplianceBenefits from "@/components/sections/compliance-benefits"
 import ImpactAreas from "@/components/sections/impact-areas"
 import StrategicApproach from "@/components/sections/strategic-approach"
 import EventsPreview from "@/components/sections/event-preview"
-import EventsPreviewWrapper from "@/components/sections/EventsPreviewServer"
-
+import AboutUsPreview from "@/components/sections/about-preview"
 
 export default function Home() {
   return (
     <div>
       <Hero />
-      <AboutSection />
+      <AboutUsPreview />
+      {/* 
       <TrustedBy />
+       */}
+      
       <EventsPreview />
       <ServicesPreview />
       <ComplianceBenefits />
