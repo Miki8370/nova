@@ -125,7 +125,7 @@ export default function Header() {
               width={100}
               height={50}
               priority
-              className="h-20 md:h-28 w-auto"
+              className="h-10 md:h-28 w-auto"
             />
           </Link>
 
@@ -134,7 +134,7 @@ export default function Header() {
             <NavigationMenu>
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Home</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-[#0d8b8b] hover:text-[#0da9a9] data-[state=open]:text-[#0da9a9]">Home</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {homeNav.map((item) => (
@@ -161,7 +161,7 @@ export default function Header() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>About Us</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">About Us</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {aboutNav.map((item) => (
@@ -188,7 +188,7 @@ export default function Header() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-[#0d8b8b] hover:text-[#0da9a9] data-[state=open]:text-[#0da9a9]">Services</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {services.map((service) => (
@@ -215,7 +215,7 @@ export default function Header() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Events</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Events</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {events.map((event) => (

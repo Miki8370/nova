@@ -16,13 +16,13 @@ const contactInfo = [
   {
     title: "Phone",
     description: "Call us during business hours",
-    value: "+234 (0) 123 456 7890",
+    value: "+251-990-087-807",
     icon: Phone,
-    href: "tel:+2341234567890",
+    href: "tel:+251-990-087-807",
   },
   {
     title: "Office Location",
-    description: "Visit us at our headquarters",
+    description: "Visit us at our headquarters: Ethio China St, TAF Energies BLD, 1st floor Office No 103,",
     value: "Adiss Ababa, Ethiopia",
     icon: MapPin,
     href: "#",
