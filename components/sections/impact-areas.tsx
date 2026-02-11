@@ -23,7 +23,7 @@ const impactAreas = [
 
 export default function ImpactAreas() {
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-[#020817]">
+    <section className="py-20" style={{ backgroundImage: 'linear-gradient(to bottom, var(--background), var(--nova-gradient-dark))' }}>
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.h2
@@ -44,10 +44,14 @@ export default function ImpactAreas() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="p-8 rounded-lg bg-card border hover:border-primary/50 hover:bg-card/80 transition-all"
+                className={`p-8 rounded-lg bg-card border hover:bg-card/80 transition-all ${
+                  index % 2 === 0
+                    ? 'border-[#0d8b8b]/30 hover:border-[#0d8b8b]'
+                    : 'border-[#d97706]/30 hover:border-[#d97706]'
+                }`}
               >
                 <div className="mb-6">
-                  <Icon className="w-12 h-12 text-primary" />
+                  <Icon className={`w-12 h-12 ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{area.title}</h3>
                 <p className="text-muted-foreground">{area.description}</p>

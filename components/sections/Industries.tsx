@@ -65,8 +65,8 @@ const industries = [
 
 export default function Industries() {
   return (
-    <section className="py-20 bg-gradient-to-b from-background via-[#020817] to-[#020817] relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-18%20at%209.40.27%E2%80%AFAM-373LVsiWeCMUoIp1mD84gCtt4nlzTn.png')] opacity-5 bg-cover bg-center" />
+    <section className="py-20 bg-gradient-to-b from-background via-[#0a4d4d]/20 to-[#0a4d4d]/20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/images/screenshot-202025-02-18-20at-209.png')] opacity-5 bg-cover bg-center" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white bg-clip-text">Industries We Serve</h2>
@@ -81,18 +81,26 @@ export default function Industries() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="relative p-8 rounded-2xl bg-[#0a101f]/40 border border-gray-800/50 backdrop-blur-sm hover:bg-[#0a101f]/60 transition-all duration-300">
+              <div className={`relative p-8 rounded-2xl bg-card border backdrop-blur-sm hover:bg-card/80 transition-all duration-300 ${
+                index % 2 === 0 ? 'border-[#0d8b8b]/40 hover:border-[#0d8b8b]' : 'border-[#d97706]/40 hover:border-[#d97706]'
+              }`}>
                 <div className="mb-6 relative">
-                  <div className="w-16 h-16 rounded-full bg-[#1a1f2e] flex items-center justify-center relative group-hover:scale-110 transition-transform duration-300">
-                    <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl group-hover:bg-primary/30 transition-all duration-300" />
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <industry.icon className="w-8 h-8 text-primary relative z-10" />
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center relative group-hover:scale-110 transition-transform duration-300 ${
+                    index % 2 === 0 ? 'bg-[#0d8b8b]/20' : 'bg-[#d97706]/20'
+                  }`}>
+                    <div className={`absolute inset-0 rounded-full ${index % 2 === 0 ? 'bg-[#0d8b8b]/20' : 'bg-[#d97706]/20'} blur-xl ${index % 2 === 0 ? 'group-hover:bg-[#0d8b8b]/30' : 'group-hover:bg-[#d97706]/30'} transition-all duration-300`} />
+                    <div className={`absolute inset-0 rounded-full ${index % 2 === 0 ? 'bg-gradient-to-br from-[#0d8b8b]/30 to-[#0d8b8b]/0' : 'bg-gradient-to-br from-[#d97706]/30 to-[#d97706]/0'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                    <industry.icon className={`w-8 h-8 relative z-10 ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-primary transition-colors duration-300">
+                <h3 className={`text-xl font-semibold mb-3 transition-colors duration-300 ${
+                  index % 2 === 0 ? 'text-white group-hover:text-[#0d8b8b]' : 'text-white group-hover:text-[#d97706]'
+                }`}>
                   {industry.name}
                 </h3>
-                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                <p className={`transition-colors duration-300 ${
+                  index % 2 === 0 ? 'text-gray-400 group-hover:text-[#0d8b8b]/80' : 'text-gray-400 group-hover:text-[#d97706]/80'
+                }`}>
                   {industry.description}
                 </p>
               </div>

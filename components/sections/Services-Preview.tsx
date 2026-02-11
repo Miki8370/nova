@@ -72,7 +72,7 @@ const featuredServices = [
 
 export default function ServicesPreview() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-background">
+    <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
           <motion.h2
@@ -100,7 +100,11 @@ export default function ServicesPreview() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative rounded-lg overflow-hidden bg-card border hover:border-primary transition-all"
+              className={`group relative rounded-lg overflow-hidden bg-card border transition-all ${
+                index % 2 === 0
+                  ? 'border-[#0d8b8b]/30 hover:border-[#0d8b8b]'
+                  : 'border-[#d97706]/30 hover:border-[#d97706]'
+              }`}
             >
               <div className="relative h-40 w-full overflow-hidden bg-muted">
                 <Image
@@ -111,8 +115,10 @@ export default function ServicesPreview() {
                 />
               </div>
               <div className="p-6">
-                <div className="mb-4 inline-block p-2 bg-primary/10 rounded-lg">
-                  <service.icon className="w-8 h-8 text-primary" />
+                <div className={`mb-4 inline-block p-2 rounded-lg ${
+                  index % 2 === 0 ? 'bg-[#0d8b8b]/10' : 'bg-[#d97706]/10'
+                }`}>
+                  <service.icon className={`w-8 h-8 ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
@@ -128,7 +134,7 @@ export default function ServicesPreview() {
           className="flex justify-center"
         >
           <Link href="/services">
-            <Button size="lg" className="group">
+            <Button size="lg" className="group bg-[#d97706] hover:bg-[#f59e0b] text-white">
               Explore All Services
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>

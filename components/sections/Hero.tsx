@@ -26,7 +26,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section ref={containerRef} className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-black">
+    <section ref={containerRef} className="min-h-screen relative overflow-hidden bg-gradient-to-br from-[#0d8b8b] via-[#1a4d4d] to-black">
       <motion.div
         style={isMounted ? { opacity, scale } : {}}
         className="container mx-auto px-4 pt-32 pb-16 relative z-10"
@@ -38,7 +38,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           >
-            Nova HR Supply & Management PLC
+            Connecting People, Creating Value
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -54,15 +54,16 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button size="lg" className="bg-white text-black hover:bg-gray-100" asChild>
+            <Button size="lg" className="bg-[#d97706] text-white hover:bg-[#f59e0b]" asChild>
               <Link href="#services">
                 Explore Our Services
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
+            <Button size="lg" variant="outline" className="text-white border-[#0da9a9] hover:bg-[#0da9a9]/10 bg-transparent">
               View Case Studies
             </Button>
+          
           </motion.div>
         </div>
         <motion.div

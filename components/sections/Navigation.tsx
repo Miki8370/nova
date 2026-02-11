@@ -262,7 +262,7 @@ export default function Header() {
             </button>
 
             {/* Desktop Contact Button */}
-            <Button asChild className="hidden md:flex">
+            <Button asChild className="hidden md:flex bg-[#d97706] hover:bg-[#f59e0b] text-white">
               <Link href="/contact">Contact Us</Link>
             </Button>
 
@@ -317,7 +317,7 @@ export default function Header() {
                     </Link>
                   </nav>
 
-                  <Button asChild className="w-full">
+                  <Button asChild className="w-full bg-[#d97706] hover:bg-[#f59e0b] text-white">
                     <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                       Contact Us
                     </Link>

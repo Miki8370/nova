@@ -6,7 +6,7 @@ import { CheckCircle2 } from "lucide-react"
 
 export default function AboutUs() {
   return (
-    <section className="py-20 bg-gradient-to-b from-[#020817] via-background to-background">
+    <section className="py-20 bg-gradient-to-b from-[#0a4d4d] via-background to-background">
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-16">

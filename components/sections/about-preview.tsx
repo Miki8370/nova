@@ -14,7 +14,7 @@ export default function AboutUsPreview() {
   ]
 
   return (
-    <section id="about" className="py-16 bg-gradient-to-b from-background via-background to-[#020817]">
+    <section className="py-16 bg-gradient-to-b from-background via-background to-[#0a4d4d]/20">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -38,9 +38,9 @@ export default function AboutUsPreview() {
             className="grid md:grid-cols-2 gap-8 mb-12"
           >
             {/* Company Overview */}
-            <div className="p-6 rounded-lg bg-card border">
-              <div className="mb-4 inline-block p-2 bg-primary/10 rounded-lg">
-                <CheckCircle2 className="w-5 h-5 text-primary" />
+            <div className="p-6 rounded-lg bg-card border border-[#0d8b8b]/30 hover:border-[#0d8b8b] transition-colors">
+              <div className="mb-4 inline-block p-2 bg-[#0d8b8b]/10 rounded-lg">
+                <CheckCircle2 className="w-5 h-5 text-[#0d8b8b]" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Who We Are</h3>
               <p className="text-sm text-muted-foreground mb-4">
@@ -52,9 +52,9 @@ export default function AboutUsPreview() {
             </div>
 
             {/* Mission Statement */}
-            <div className="p-6 rounded-lg bg-card border">
-              <div className="mb-4 inline-block p-2 bg-primary/10 rounded-lg">
-                <CheckCircle2 className="w-5 h-5 text-primary" />
+            <div className="p-6 rounded-lg bg-card border border-[#d97706]/30 hover:border-[#d97706] transition-colors">
+              <div className="mb-4 inline-block p-2 bg-[#d97706]/10 rounded-lg">
+                <CheckCircle2 className="w-5 h-5 text-[#d97706]" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Our Mission</h3>
               <p className="text-sm text-muted-foreground">
@@ -78,7 +78,11 @@ export default function AboutUsPreview() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: i * 0.1 }}
-                  className="p-6 rounded-lg bg-card border hover:border-primary transition-colors text-center group cursor-pointer"
+                  className={`p-6 rounded-lg bg-card border text-center group cursor-pointer transition-colors ${
+                    i % 2 === 0 
+                      ? 'border-[#0d8b8b]/30 hover:border-[#0d8b8b]' 
+                      : 'border-[#d97706]/30 hover:border-[#d97706]'
+                  }`}
                 >
                   <p className="text-3xl mb-3">{value.icon}</p>
                   <h4 className="font-semibold group-hover:text-primary transition-colors">
@@ -94,7 +98,7 @@ export default function AboutUsPreview() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-12 p-8 rounded-lg bg-card border"
+            className="mb-12 p-8 rounded-lg bg-card border border-[#0d8b8b]/30 hover:border-[#0d8b8b] transition-colors"
           >
             <h3 className="text-2xl font-semibold mb-6">What We Offer</h3>
             <div className="grid md:grid-cols-2 gap-3 mb-6">
@@ -115,7 +119,7 @@ export default function AboutUsPreview() {
                   transition={{ duration: 0.2, delay: i * 0.03 }}
                   className="flex items-start gap-2"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-[#0d8b8b] flex-shrink-0 mt-0.5" />
                   <span className="text-sm text-muted-foreground">{service}</span>
                 </motion.div>
               ))}
@@ -129,7 +133,7 @@ export default function AboutUsPreview() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex justify-center"
           >
-            <Button asChild>
+            <Button asChild className="bg-[#0d8b8b] hover:bg-[#0da9a9] text-white">
               <Link href="/about">
                 View Our Full Story
                 <ArrowUpRight className="w-4 h-4 ml-2" />

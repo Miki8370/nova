@@ -138,7 +138,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section className="py-20 bg-gradient-to-b from-[#020817] via-background to-background">
+    <section className="py-20" style={{ backgroundImage: 'linear-gradient(to bottom, var(--nova-gradient-dark), var(--background))' }}>
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Strategic Human Resource Management for Sustainable Growth</h2>
@@ -153,7 +153,11 @@ export default function Services() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative rounded-lg overflow-hidden bg-card hover:bg-card/80 transition-all border"
+              className={`group relative rounded-lg overflow-hidden bg-card hover:bg-card/80 transition-all border ${
+                index % 2 === 0
+                  ? 'border-[#0d8b8b]/30 hover:border-[#0d8b8b]'
+                  : 'border-[#d97706]/30 hover:border-[#d97706]'
+              }`}
             >
               <div className="relative h-48 w-full overflow-hidden">
                 <Image
@@ -165,7 +169,7 @@ export default function Services() {
               </div>
               <div className="p-8">
                 <div className="mb-6">
-                  <service.icon className="w-12 h-12 text-primary" />
+                  <service.icon className={`w-12 h-12 ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
                 <p className="text-muted-foreground mb-4 text-sm">{service.description}</p>

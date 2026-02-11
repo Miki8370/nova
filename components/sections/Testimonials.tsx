@@ -31,9 +31,9 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-20 bg-gradient-to-b from-background via-[#020817] to-[#020817] relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-18%20at%209.55.08%E2%80%AFAM-ypTTp4IoNpltt8VmBpSgg192rU6zFx.png')] opacity-5 bg-cover bg-center" />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+    <section className="py-20 bg-gradient-to-b from-background via-[#0a4d4d]/20 to-[#0a4d4d]/20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/images/screenshot-202025-02-18-20at-209.png')] opacity-5 bg-cover bg-center" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0d8b8b]/10 via-transparent to-transparent" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">What people say</h2>
@@ -50,7 +50,9 @@ export default function Testimonials() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="relative p-8 rounded-2xl bg-[#0a101f]/40 border border-gray-800/50 backdrop-blur-sm hover:bg-[#0a101f]/60 transition-all duration-300">
+              <div className={`relative p-8 rounded-2xl bg-card border backdrop-blur-sm hover:bg-card/80 transition-all duration-300 ${
+                index % 2 === 0 ? 'border-[#0d8b8b]/40 hover:border-[#0d8b8b]' : 'border-[#d97706]/40 hover:border-[#d97706]'
+              }`}>
                 <div className="mb-6 flex items-center gap-4">
                   <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-gray-800/50">
                     <Image

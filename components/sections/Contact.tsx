@@ -9,21 +9,21 @@ const contactInfo = [
   {
     title: "Email",
     description: "Get in touch via email",
-    value: "info@novahrsm.com",
+    value: "contact@novahr.com",
     icon: Mail,
-    href: "info@novahrsm.com",
+    href: "mailto:contact@novahr.com",
   },
   {
     title: "Phone",
     description: "Call us during business hours",
-    value: "+251-990-087-807",
+    value: "+234 (0) 123 456 7890",
     icon: Phone,
-    href: "tel:+251-990-087-807",
+    href: "tel:+2341234567890",
   },
   {
     title: "Office Location",
-    description: "Visit us at our headquarters: Ethio China St, TAF Energies BLD, 1st floor Office No 103,",
-    value: "Adiss Ababa, Ethiopia",
+    description: "Visit us at our headquarters",
+    value: "Lagos, Nigeria",
     icon: MapPin,
     href: "#",
   },
@@ -31,7 +31,7 @@ const contactInfo = [
 
 export default function Contact() {
   return (
-    <section className="py-20 bg-gradient-to-b from-[#020817] via-background to-background">
+    <section className="py-20" style={{ backgroundImage: 'linear-gradient(to bottom, var(--nova-gradient-dark), var(--background))' }}>
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch With Nova HR</h2>
@@ -52,18 +52,24 @@ export default function Contact() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative p-8 rounded-lg bg-card hover:bg-card/80 transition-all border hover:border-primary"
+                  className={`group relative p-8 rounded-lg bg-card hover:bg-card/80 transition-all border ${
+                    index % 2 === 0
+                      ? 'border-[#0d8b8b]/30 hover:border-[#0d8b8b]'
+                      : 'border-[#d97706]/30 hover:border-[#d97706]'
+                  }`}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className={`p-3 rounded-lg ${
+                      index % 2 === 0 ? 'bg-[#0d8b8b]/10' : 'bg-[#d97706]/10'
+                    }`}>
+                      <Icon className={`w-6 h-6 ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold mb-2">{info.title}</h3>
                       <p className="text-sm text-muted-foreground mb-3">{info.description}</p>
-                      <p className="text-lg font-medium text-primary">{info.value}</p>
+                      <p className={`text-lg font-medium ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`}>{info.value}</p>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className={`w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
                   </div>
                 </motion.a>
               )
