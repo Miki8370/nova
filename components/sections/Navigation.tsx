@@ -120,7 +120,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0 -ml-4">
             <Image
-              src="/nova_logo.png"
+              src="/nova_logo0.png"
               alt="Nova HR Logo"
               width={100}
               height={50}
