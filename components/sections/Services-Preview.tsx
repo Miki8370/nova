@@ -8,73 +8,28 @@ import Link from "next/link"
 
 const featuredServices = [
   {
-    title: "Talent Sourcing & Strategic Recruitment",
-    description: "We identify and attract the highest-caliber talent through a merit-based and transparent selection process.",
-    image: "/talent-sourcing.jpg",
-    icon: () => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-8 h-8"
-      >
-        <path d="M12 2a10 10 0 1 0 10 10H12V2Z" />
-        <path d="M12 12 2.5 2.5" />
-        <path d="m2 2 20 20" />
-      </svg>
-    ),
+    title: "HR Supply & Management",
+    description: "Skilled manpower solutions tailored to your business needs.",
+    image: "/hr-supply.jpg",
   },
   {
-    title: "Workforce Supply & Management",
-    description: "Nova handles the complexities of labor management so you can focus on your core operations.",
-    image: "/workforce-management.jpg",
-    icon: () => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-8 h-8"
-      >
-        <path d="m7 8-4 4 4 4" />
-        <path d="m17 8 4 4-4 4" />
-        <path d="m14 4-4 16" />
-      </svg>
-    ),
+    title: "Cleaning & Security",
+    description: "Safe, secure, and hygienic environments for your organization.",
+    image: "/cleaning-security.jpg",
   },
   {
-    title: "Training & Professional Development",
-    description: "Programs designed to increase productivity and expertise within your organization.",
-    image: "/training-development.jpg",
-    icon: () => (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-8 h-8"
-      >
-        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
-      </svg>
-    ),
+    title: "Logistics Services",
+    description: "Reliable workforce and operational logistics support.",
+    image: "/logistics.jpg",
   },
 ]
 
 export default function ServicesPreview() {
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center mb-12 md:mb-16">
+
+        <div className="max-w-2xl mx-auto text-center mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -83,13 +38,14 @@ export default function ServicesPreview() {
           >
             Our Core Services
           </motion.h2>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-lg text-muted-foreground"
           >
-            Comprehensive HR solutions designed to drive organizational growth and employee success
+            Reliable workforce and operational support solutions across industries.
           </motion.p>
         </div>
 
@@ -100,46 +56,38 @@ export default function ServicesPreview() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`group relative rounded-lg overflow-hidden bg-card border transition-all ${
-                index % 2 === 0
-                  ? 'border-[#0d8b8b]/30 hover:border-[#0d8b8b]'
-                  : 'border-[#d97706]/30 hover:border-[#d97706]'
-              }`}
+              className="group rounded-lg overflow-hidden bg-card border border-border hover:shadow-md transition-all"
             >
-              <div className="relative h-40 w-full overflow-hidden bg-muted">
+              <div className="relative h-40 w-full overflow-hidden">
                 <Image
-                  src={service.image || "/placeholder.svg"}
+                  src={service.image}
                   alt={service.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
+
               <div className="p-6">
-                <div className={`mb-4 inline-block p-2 rounded-lg ${
-                  index % 2 === 0 ? 'bg-[#0d8b8b]/10' : 'bg-[#d97706]/10'
-                }`}>
-                  <service.icon className={`w-8 h-8 ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+                <h3 className="text-lg font-semibold mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {service.description}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-center"
-        >
+        <div className="flex justify-center">
           <Link href="/services">
-            <Button size="lg" className="group bg-[#d97706] hover:bg-[#f59e0b] text-white">
+          <Button size="lg" className="group bg-[#d97706] hover:bg-[#f59e0b] text-white">
               Explore All Services
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-        </motion.div>
+        </div>
+
       </div>
     </section>
   )

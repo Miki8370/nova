@@ -32,10 +32,20 @@ export default function Hero() {
         className="container mx-auto px-4 pt-32 pb-16 relative z-10"
       >
         <div className="max-w-4xl mx-auto text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="inline-block mb-8"
+          >
+            <span className="inline-block px-6 py-3 rounded-full bg-[#d97706]/20 border-2 border-[#d97706]/60 text-[#f59e0b] font-bold text-base md:text-lg tracking-wide">
+              Nova HR Supply & Management PLC
+            </span>
+          </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           >
             Connecting People, Creating Value
@@ -63,7 +73,6 @@ export default function Hero() {
             <Button size="lg" variant="outline" className="text-white border-[#0da9a9] hover:bg-[#0da9a9]/10 bg-transparent">
               View Case Studies
             </Button>
-          
           </motion.div>
         </div>
         <motion.div

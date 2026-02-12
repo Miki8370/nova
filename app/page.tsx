@@ -13,6 +13,8 @@ import ImpactAreas from "@/components/sections/impact-areas"
 import StrategicApproach from "@/components/sections/strategic-approach"
 import EventsPreview from "@/components/sections/event-preview"
 import AboutUsPreview from "@/components/sections/about-preview"
+import PackagesPreview from "@/components/sections/packages-preview"
+
 
 export default function Home() {
   return (
@@ -25,6 +27,7 @@ export default function Home() {
       
       <EventsPreview />
       <ServicesPreview />
+      <PackagesPreview />
       <ComplianceBenefits />
       <ImpactAreas />
       <StrategicApproach />

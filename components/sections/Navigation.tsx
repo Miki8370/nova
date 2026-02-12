@@ -134,7 +134,7 @@ export default function Header() {
             <NavigationMenu>
               <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-[#0d8b8b] hover:text-[#0da9a9] data-[state=open]:text-[#0da9a9]">Home</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Home</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {homeNav.map((item) => (
@@ -188,7 +188,7 @@ export default function Header() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-[#0d8b8b] hover:text-[#0da9a9] data-[state=open]:text-[#0da9a9]">Services</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Services</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {services.map((service) => (

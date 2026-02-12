@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -9,27 +10,71 @@ const contactInfo = [
   {
     title: "Email",
     description: "Get in touch via email",
-    value: "contact@novahr.com",
+    value: "info@novahrsm.com",
     icon: Mail,
-    href: "mailto:contact@novahr.com",
+    href: "info@novahrsm.com",
   },
   {
     title: "Phone",
     description: "Call us during business hours",
-    value: "+234 (0) 123 456 7890",
+    value: "+251-990-087-807",
     icon: Phone,
-    href: "tel:+2341234567890",
+    href: "tel:+251-990-087-807",
   },
   {
     title: "Office Location",
-    description: "Visit us at our headquarters",
-    value: "Lagos, Nigeria",
+    description: "Visit us at our headquarters: Ethio China St, TAF Energies BLD, 1st floor Office No 103,",
+    value: "Adiss Ababa, Ethiopia",
     icon: MapPin,
     href: "#",
   },
 ]
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', company: '', subject: '', message: '' })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <section className="py-20" style={{ backgroundImage: 'linear-gradient(to bottom, var(--nova-gradient-dark), var(--background))' }}>
       <div className="container mx-auto px-4">
@@ -101,13 +146,30 @@ export default function Contact() {
           className="max-w-2xl mx-auto bg-card border rounded-lg p-8 md:p-12"
         >
           <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
-          <form className="space-y-6">
+          
+          {submitStatus === 'success' && (
+            <div className="mb-6 p-4 bg-green-100 text-green-700 rounded-lg">
+              Message sent successfully! We'll get back to you soon.
+            </div>
+          )}
+          
+          {submitStatus === 'error' && (
+            <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
+              Failed to send message. Please try again or email us directly.
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2">Full Name</label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your name"
+                  required
                   className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                 />
               </div>
@@ -115,7 +177,11 @@ export default function Contact() {
                 <label className="block text-sm font-medium mb-2">Email Address</label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="your@email.com"
+                  required
                   className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                 />
               </div>
@@ -125,6 +191,9 @@ export default function Contact() {
               <label className="block text-sm font-medium mb-2">Company</label>
               <input
                 type="text"
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
                 placeholder="Your company name"
                 className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
               />
@@ -134,7 +203,11 @@ export default function Contact() {
               <label className="block text-sm font-medium mb-2">Subject</label>
               <input
                 type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
                 placeholder="How can we help?"
+                required
                 className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
               />
             </div>
@@ -142,14 +215,18 @@ export default function Contact() {
             <div>
               <label className="block text-sm font-medium mb-2">Message</label>
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Tell us more about your inquiry..."
                 rows={5}
+                required
                 className="w-full px-4 py-3 bg-background border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
               />
             </div>
 
-            <Button size="lg" className="w-full">
-              Send Message
+            <Button size="lg" className="w-full" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send Message'}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </form>
