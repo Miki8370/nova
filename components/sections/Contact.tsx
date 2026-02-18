@@ -2,9 +2,8 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react"
+import { Mail, Phone, MapPin, ArrowRight, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
 
 const contactInfo = [
   {
@@ -23,7 +22,7 @@ const contactInfo = [
   },
   {
     title: "Office Location",
-    description: "Visit us at our headquarters: Ethio China St, TAF Energies BLD, 1st floor Office No 103,",
+    description: "Visit us at our headquarters: Ethio China St, TAF Energies BLD",
     value: "Adiss Ababa, Ethiopia",
     icon: MapPin,
     href: "#",
@@ -76,66 +75,65 @@ export default function Contact() {
   }
 
   return (
-    <section className="py-20" style={{ backgroundImage: 'linear-gradient(to bottom, var(--nova-gradient-dark), var(--background))' }}>
+    <section className="py-20 bg-gradient-to-b from-background via-muted/5 to-background">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch With Nova HR</h2>
-          <p className="text-lg text-muted-foreground">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent"
+          >
+            Get in Touch With Nova HR
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-lg text-muted-foreground"
+          >
             Have questions about our services? We're here to help. Connect with our team to discuss how Nova HR can support your organization's growth.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {/* Contact Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-            {contactInfo.map((info, index) => {
-              const Icon = info.icon
-              return (
-                <motion.a
-                  key={info.title}
-                  href={info.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`group relative p-8 rounded-lg bg-card hover:bg-card/80 transition-all border ${
-                    index % 2 === 0
-                      ? 'border-[#0d8b8b]/30 hover:border-[#0d8b8b]'
-                      : 'border-[#d97706]/30 hover:border-[#d97706]'
-                  }`}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={`p-3 rounded-lg ${
-                      index % 2 === 0 ? 'bg-[#0d8b8b]/10' : 'bg-[#d97706]/10'
-                    }`}>
-                      <Icon className={`w-6 h-6 ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold mb-2">{info.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{info.description}</p>
-                      <p className={`text-lg font-medium ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`}>{info.value}</p>
-                    </div>
-                    <ArrowRight className={`w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity ${index % 2 === 0 ? 'text-[#0d8b8b]' : 'text-[#d97706]'}`} />
-                  </div>
-                </motion.a>
-              )
-            })}
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
+          {contactInfo.map((info, index) => {
+            const Icon = info.icon
+            const gradients = [
+              'from-blue-500 to-cyan-400',
+              'from-orange-500 to-amber-400',
+              'from-emerald-500 to-teal-400',
+            ]
+            const gradient = gradients[index]
+            
+            return (
+              <motion.a
+                key={info.title}
+                href={info.href}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative p-8 rounded-xl bg-card border border-border hover:border-foreground/20 hover:shadow-lg transition-all duration-300"
+              >
+                {/* Top gradient accent */}
+                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient}`} />
+                
+                {/* Icon container */}
+                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className="w-7 h-7 text-white" />
+                </div>
 
-          {/* Contact Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative rounded-lg overflow-hidden h-96 lg:h-full"
-          >
-            <Image
-              src="/contact-office.jpg"
-              alt="Nova HR Office"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-          </motion.div>
+                <h3 className="text-xl font-bold mb-2">{info.title}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{info.description}</p>
+                <p className="text-base font-semibold group-hover:text-foreground transition-colors">
+                  {info.value}
+                </p>
+
+                {/* Hover indicator */}
+                <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              </motion.a>
+            )
+          })}
         </div>
 
         {/* Contact Form */}
@@ -143,9 +141,14 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="max-w-2xl mx-auto bg-card border rounded-lg p-8 md:p-12"
+          className="max-w-2xl mx-auto bg-card border border-border rounded-xl p-8 md:p-12 shadow-lg"
         >
-          <h3 className="text-2xl font-bold mb-6">Send us a Message</h3>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-amber-400">
+              <Send className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold">Send us a Message</h3>
+          </div>
           
           {submitStatus === 'success' && (
             <div className="mb-6 p-4 bg-green-100 text-green-700 rounded-lg">
@@ -225,9 +228,14 @@ export default function Contact() {
               />
             </div>
 
-            <Button size="lg" className="w-full" type="submit" disabled={isSubmitting}>
+            <Button 
+              size="lg" 
+              className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg hover:shadow-xl transition-all" 
+              type="submit" 
+              disabled={isSubmitting}
+            >
               {isSubmitting ? 'Sending...' : 'Send Message'}
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <Send className="w-4 h-4 ml-2" />
             </Button>
           </form>
         </motion.div>

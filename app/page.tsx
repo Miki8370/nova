@@ -23,6 +23,7 @@ export default function Home() {
       <AboutUsPreview />
       {/* 
       <TrustedBy />
+      <Testimonials />
        */}
       
       <EventsPreview />
@@ -33,7 +34,7 @@ export default function Home() {
       <StrategicApproach />
       <Industries />
 
-      <Testimonials />
+      
       <ContactPreview />
 
       <CTA />

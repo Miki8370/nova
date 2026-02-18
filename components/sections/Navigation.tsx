@@ -21,33 +21,18 @@ import {
 
 const services = [
   {
-    title: 'Talent Sourcing',
-    description: 'Identify and attract high-caliber talent through merit-based selection',
+    title: 'HR Supply & Management',
+    description: 'Skilled manpower solutions tailored to your business needs.',
     href: '/services',
   },
   {
-    title: 'Workforce Management',
-    description: 'Handle labor complexities and contract administration',
+    title: 'Cleaning & Security',
+    description: 'Safe, secure, and hygienic environments for your organization.',
     href: '/services',
   },
   {
-    title: 'Training & Development',
-    description: 'Increase productivity with induction and skill upgrading programs',
-    href: '/services',
-  },
-  {
-    title: 'Job Classification',
-    description: 'Build fair internal structures with competitive salary scales',
-    href: '/services',
-  },
-  {
-    title: 'Performance Management',
-    description: 'Link individual performance to strategic goals',
-    href: '/services',
-  },
-  {
-    title: 'HR Consulting',
-    description: 'Build robust HR infrastructure and ensure compliance',
+    title: 'Logistics Services',
+    description: 'Reliable workforce and operational logistics support.',
     href: '/services',
   },
 ]
