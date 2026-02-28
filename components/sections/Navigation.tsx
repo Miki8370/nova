@@ -19,6 +19,36 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 
+
+const Packages = [
+  {
+    title: "Talent Sourcing & Strategic Recruitment Package",
+    description: "A complete recruitment package designed to identify, evaluate, and onboard top-tier talent efficiently.",
+    href: '/packages',
+  },
+  {
+    title: "Workforce Supply & Management Package",
+    description: "A structured workforce solution package that handles labor administration, payroll, and performance.",
+    href: '/packages',
+  },
+  {
+    title: "Training & Professional Development Package",
+    description: "A performance-driven development package focused on increasing productivity and leadership capacity.",
+    href: '/packages',
+  },
+  {
+    title: "Job Classification & Salary Structuring Package",
+    description: "A strategic compensation package designed to create fair structures that attract and retain talent.",
+    href: '/packages',
+  },
+  {
+    
+    title: "Performance Management & Evaluation Package",
+    description: "A structured performance package aligning KPIs, appraisals, and rewards with company strategy.",
+    href: '/packages',
+  }
+]
+
 const services = [
   {
     title: 'HR Supply & Management',
@@ -198,6 +228,34 @@ export default function Header() {
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Packages</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {Packages.map((packag) => (
+                        <Link
+                          key={packag.title}
+                          href={packag.href}
+                          legacyBehavior
+                          passHref
+                        >
+                          <NavigationMenuLink asChild>
+                            <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
+                              <h4 className="text-sm font-semibold leading-none mb-1">
+                                {packag.title}
+                              </h4>
+                              <p className="text-xs text-muted-foreground">
+                                {packag.description}
+                              </p>
+                            </div>
+                          </NavigationMenuLink>
+                        </Link>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
 
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Events</NavigationMenuTrigger>

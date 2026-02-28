@@ -24,20 +24,24 @@ export default function Home() {
       {/* 
       <TrustedBy />
       <Testimonials />
+      <Industries />
+      <EventsPreview />
+      <CTA />
+      <StrategicApproach />
        */}
       
-      <EventsPreview />
+      
       <ServicesPreview />
       <PackagesPreview />
       <ComplianceBenefits />
       <ImpactAreas />
-      <StrategicApproach />
-      <Industries />
+      
+      
 
       
       <ContactPreview />
 
-      <CTA />
+      
     </div>
   )
 }
