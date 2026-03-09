@@ -3,22 +3,16 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Search } from 'lucide-react'
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-  NavigationMenuLink,
-} from '@/components/ui/navigation-menu'
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetTitle,
+  SheetDescription,
 } from '@/components/ui/sheet'
-
 
 const Packages = [
   {
@@ -114,6 +108,12 @@ const aboutNav = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -146,145 +146,58 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <NavigationMenu>
-              <NavigationMenuList className="gap-2">
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Home</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {homeNav.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          legacyBehavior
-                          passHref
-                        >
-                          <NavigationMenuLink asChild>
-                            <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
-                              <h4 className="text-sm font-semibold leading-none mb-1">
-                                {item.title}
-                              </h4>
-                              <p className="text-xs text-muted-foreground">
-                                {item.description}
-                              </p>
-                            </div>
-                          </NavigationMenuLink>
-                        </Link>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">About Us</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {aboutNav.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          legacyBehavior
-                          passHref
-                        >
-                          <NavigationMenuLink asChild>
-                            <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
-                              <h4 className="text-sm font-semibold leading-none mb-1">
-                                {item.title}
-                              </h4>
-                              <p className="text-xs text-muted-foreground">
-                                {item.description}
-                              </p>
-                            </div>
-                          </NavigationMenuLink>
-                        </Link>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Services</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {services.map((service) => (
-                        <Link
-                          key={service.title}
-                          href={service.href}
-                          legacyBehavior
-                          passHref
-                        >
-                          <NavigationMenuLink asChild>
-                            <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
-                              <h4 className="text-sm font-semibold leading-none mb-1">
-                                {service.title}
-                              </h4>
-                              <p className="text-xs text-muted-foreground">
-                                {service.description}
-                              </p>
-                            </div>
-                          </NavigationMenuLink>
-                        </Link>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Packages</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {Packages.map((packag) => (
-                        <Link
-                          key={packag.title}
-                          href={packag.href}
-                          legacyBehavior
-                          passHref
-                        >
-                          <NavigationMenuLink asChild>
-                            <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
-                              <h4 className="text-sm font-semibold leading-none mb-1">
-                                {packag.title}
-                              </h4>
-                              <p className="text-xs text-muted-foreground">
-                                {packag.description}
-                              </p>
-                            </div>
-                          </NavigationMenuLink>
-                        </Link>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-[#d97706] hover:text-[#f59e0b] data-[state=open]:text-[#f59e0b]">Events</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {events.map((event) => (
-                        <Link
-                          key={event.title}
-                          href={event.href}
-                          legacyBehavior
-                          passHref
-                        >
-                          <NavigationMenuLink asChild>
-                            <div className="cursor-pointer rounded-md p-3 hover:bg-accent transition-colors">
-                              <h4 className="text-sm font-semibold leading-none mb-1">
-                                {event.title}
-                              </h4>
-                              <p className="text-xs text-muted-foreground">
-                                {event.description}
-                              </p>
-                            </div>
-                          </NavigationMenuLink>
-                        </Link>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+            <nav className="flex items-center gap-6">
+              <Link
+                href="/"
+                className={`text-sm font-medium transition-colors pb-1 border-b-2 ${
+                  isActive('/') 
+                    ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                    : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                }`}
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className={`text-sm font-medium transition-colors pb-1 border-b-2 ${
+                  isActive('/about') 
+                    ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                    : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                }`}
+              >
+                About Us
+              </Link>
+              <Link
+                href="/services"
+                className={`text-sm font-medium transition-colors pb-1 border-b-2 ${
+                  isActive('/services') 
+                    ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                    : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                }`}
+              >
+                Services
+              </Link>
+              <Link
+                href="/packages"
+                className={`text-sm font-medium transition-colors pb-1 border-b-2 ${
+                  isActive('/packages') 
+                    ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                    : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                }`}
+              >
+                Packages
+              </Link>
+              <Link
+                href="/events"
+                className={`text-sm font-medium transition-colors pb-1 border-b-2 ${
+                  isActive('/events') 
+                    ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                    : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                }`}
+              >
+                Events
+              </Link>
+            </nav>
 
             {/* Search Bar */}
             <div className="relative hidden lg:flex items-center">
@@ -317,6 +230,12 @@ export default function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-full sm:w-80">
+                {/* Add SheetTitle for accessibility (visually hidden) */}
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                <SheetDescription className="sr-only">
+                  Main navigation menu for Nova HR website
+                </SheetDescription>
+                
                 <div className="flex flex-col gap-6 mt-8">
                   <div className="flex gap-3">
                     <input
@@ -332,28 +251,55 @@ export default function Header() {
                   <nav className="flex flex-col gap-4">
                     <Link
                       href="/"
-                      className="text-lg font-medium hover:text-primary transition-colors"
+                      className={`text-lg font-medium transition-colors pb-2 border-b-2 ${
+                        isActive('/') 
+                          ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                          : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Home
                     </Link>
                     <Link
                       href="/about"
-                      className="text-lg font-medium hover:text-primary transition-colors"
+                      className={`text-lg font-medium transition-colors pb-2 border-b-2 ${
+                        isActive('/about') 
+                          ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                          : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       About Us
                     </Link>
                     <Link
                       href="/services"
-                      className="text-lg font-medium hover:text-primary transition-colors"
+                      className={`text-lg font-medium transition-colors pb-2 border-b-2 ${
+                        isActive('/services') 
+                          ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                          : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Services
                     </Link>
                     <Link
+                      href="/packages"
+                      className={`text-lg font-medium transition-colors pb-2 border-b-2 ${
+                        isActive('/packages') 
+                          ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                          : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Packages
+                    </Link>
+                    <Link
                       href="/events"
-                      className="text-lg font-medium hover:text-primary transition-colors"
+                      className={`text-lg font-medium transition-colors pb-2 border-b-2 ${
+                        isActive('/events') 
+                          ? 'text-[#f59e0b] border-b-[#f59e0b]' 
+                          : 'text-[#d97706] border-b-transparent hover:text-[#f59e0b]'
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Events

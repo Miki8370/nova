@@ -2,24 +2,18 @@ import type React from "react"
 import "@/styles/globals.css"
 import { Inter } from "next/font/google"
 import type { Metadata } from "next"
-import Header from "@/components/sections/Navigation"
-import Footer from "@/components/sections/Footer"
-
-import { ThemeProvider } from "@/components/theme-provider"
+import { Providers } from "./providers"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://novahrsm.com"),
-
   title: {
     default: "Nova HR SM | HR Consulting & Outsourcing Services in Ethiopia",
     template: "%s | Nova HR SM",
   },
-
   description:
     "Nova HR SM provides professional HR consulting, recruitment, employee training, and HR outsourcing services in Ethiopia. We help businesses build strong and productive teams.",
-
   keywords: [
     "HR consulting Ethiopia",
     "HR outsourcing Ethiopia",
@@ -27,13 +21,11 @@ export const metadata: Metadata = {
     "Human resource management Ethiopia",
     "Employee training Ethiopia",
   ],
-
   icons: {
     icon: "/nova_image.jpeg",
     shortcut: "/nova_image.jpeg",
     apple: "/nova_image.jpeg",
   },
-
   openGraph: {
     title: "Nova HR SM | HR Services in Ethiopia",
     description:
@@ -51,7 +43,6 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Nova HR SM | HR Consulting Ethiopia",
@@ -69,33 +60,30 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      <link rel="icon" href="/nova_image.jpeg" />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "Nova HR SM",
-            url: "https://novahrsm.com",
-            logo: "https://novahrsm.com/nova_image.jpeg",
-            description:
-              "HR consulting, recruitment and outsourcing services in Ethiopia.",
-            address: {
-              "@type": "PostalAddress",
-              addressCountry: "ET",
-            },
-          }),
-  }}
-/>
-        
+        <link rel="icon" href="/nova_image.jpeg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Nova HR SM",
+              url: "https://novahrsm.com",
+              logo: "https://novahrsm.com/nova_image.jpeg",
+              description:
+                "HR consulting, recruitment and outsourcing services in Ethiopia.",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "ET",
+              },
+            }),
+          }}
+        />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <Header />
+        <Providers>
           {children}
-          <Footer />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )

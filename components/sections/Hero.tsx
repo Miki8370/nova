@@ -1,18 +1,18 @@
 'use client'
 
 import { useRef, useEffect, useState } from 'react'
-import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ChevronDown, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { githubService } from '@/lib/github-service'
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
-  const inView = useInView(contentRef, { once: false, amount: 0.3 })
+  const [backgroundImage, setBackgroundImage] = useState('/hero-bg.jpg')
 
+  // Always call useScroll at the top level
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
@@ -20,11 +20,21 @@ export default function Hero() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100])
 
   useEffect(() => {
-    setIsMounted(true)
+    fetchHeroImage()
   }, [])
+
+  const fetchHeroImage = async () => {
+    try {
+      const data = await githubService.getContent()
+      if (data.hero?.backgroundImage) {
+        setBackgroundImage(data.hero.backgroundImage)
+      }
+    } catch (error) {
+      console.error("Error fetching hero image:", error)
+    }
+  }
 
   // Text animation variants
   const containerVariants = {
@@ -52,11 +62,10 @@ export default function Hero() {
   }
 
   const letterVariants = {
-    hidden: { opacity: 0, y: 50, rotateX: -90 },
+    hidden: { opacity: 0, y: 50 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      rotateX: 0,
       transition: {
         delay: i * 0.05,
         type: 'spring',
@@ -73,7 +82,8 @@ export default function Hero() {
         custom={i}
         variants={letterVariants}
         initial="hidden"
-        animate={inView ? 'visible' : 'hidden'}
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
         className="inline-block"
       >
         {char === ' ' ? '\u00A0' : char}
@@ -83,8 +93,7 @@ export default function Hero() {
 
   // Generate deterministic particle positions
   const particles = Array.from({ length: 5 }, (_, i) => ({
-    // Use deterministic values based on index instead of Math.random()
-    x: (i * 20.5) % 100, // This will always be the same on server and client
+    x: (i * 20.5) % 100,
     y: (i * 13.7) % 100,
     duration: 8 + i * 2,
     delay: i * 0.5,
@@ -97,11 +106,11 @@ export default function Hero() {
     >
       {/* Background Image with Overlay */}
       <motion.div
-        style={isMounted ? { opacity, scale } : {}}
+        style={{ opacity, scale }}
         className="absolute inset-0 w-full h-full"
       >
         <Image
-          src="/hero-bg.jpg"
+          src={backgroundImage}
           alt="Professional HR consulting background"
           fill
           className="object-cover object-center"
@@ -148,8 +157,7 @@ export default function Hero() {
 
       {/* Content */}
       <motion.div
-        ref={contentRef}
-        style={isMounted ? { opacity, scale, y } : {}}
+        style={{ y: useTransform(scrollYProgress, [0, 0.5], [0, 100]) }}
         className="relative z-10 container mx-auto px-4 pt-32 pb-16 h-full flex items-center justify-center"
       >
         <div className="max-w-5xl mx-auto text-center w-full">
@@ -207,7 +215,8 @@ export default function Hero() {
           <motion.div
             variants={containerVariants}
             initial="hidden"
-            animate={inView ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
             className="mb-8"
           >
             <motion.p
@@ -222,7 +231,8 @@ export default function Hero() {
           <motion.div
             variants={containerVariants}
             initial="hidden"
-            animate={inView ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mt-12"
           >
             <motion.div
@@ -246,22 +256,6 @@ export default function Hero() {
                 </Link>
               </Button>
             </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-            >
-             {/* 
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-cyan-400 text-cyan-300 hover:bg-cyan-500/20 backdrop-blur-sm px-8 py-6 text-lg font-bold rounded-xl transition-all duration-300"
-              >
-                View Case Studies
-              </Button>
-              */}
-            </motion.div>
           </motion.div>
         </div>
       </motion.div>
@@ -284,7 +278,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Floating particles effect - FIXED with deterministic values */}
+      {/* Floating particles effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {particles.map((particle, i) => (
           <motion.div
@@ -308,32 +302,6 @@ export default function Hero() {
           />
         ))}
       </div>
-
-      {/* Alternative: Only render particles on client */}
-      {/* {isMounted && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full"
-              initial={{
-                x: Math.random() * 100 + '%',
-                y: Math.random() * 100 + '%',
-                opacity: 0.1,
-              }}
-              animate={{
-                y: [0, -100, -200],
-                opacity: [0.1, 0.5, 0],
-              }}
-              transition={{
-                duration: 8 + i * 2,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            />
-          ))}
-        </div>
-      )} */}
     </section>
   )
 }

@@ -14,6 +14,7 @@ import StrategicApproach from "@/components/sections/strategic-approach"
 import EventsPreview from "@/components/sections/event-preview"
 import AboutUsPreview from "@/components/sections/about-preview"
 import PackagesPreview from "@/components/sections/packages-preview"
+import Team from "@/components/sections/Team"
 
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
       <PackagesPreview />
       <ComplianceBenefits />
       <ImpactAreas />
+      <Team />
       
       
 
