@@ -32,34 +32,17 @@ export default function AdminLogin() {
         callbackUrl
       });
 
-      console.log("SignIn result:", result); // Add this for debugging
+      console.log("SignIn result:", result);
 
       if (result?.error) {
         setError("Invalid email or password");
         setLoading(false);
       } else if (result?.ok) {
-        // Success! Let's verify the session before redirecting
-        const sessionCheck = await fetch('/api/auth/session');
-        const session = await sessionCheck.json();
+        // Wait a moment for the session cookie to be set
+        await new Promise(resolve => setTimeout(resolve, 500));
         
-        if (session?.user) {
-          // Session exists, redirect to admin
-          router.push(callbackUrl);
-          router.refresh();
-        } else {
-          // Session not yet established, wait a moment and try again
-          setTimeout(async () => {
-            const retrySession = await fetch('/api/auth/session');
-            const retryData = await retrySession.json();
-            if (retryData?.user) {
-              router.push(callbackUrl);
-              router.refresh();
-            } else {
-              setError("Session not established. Please try again.");
-              setLoading(false);
-            }
-          }, 500);
-        }
+        // Force a hard navigation to ensure cookies are sent
+        window.location.href = callbackUrl;
       }
     } catch (error) {
       console.error("Login exception:", error);

@@ -9,23 +9,34 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (status === "loading" || isRedirecting) return;
+    setIsClient(true);
+  }, []);
 
+  useEffect(() => {
+    if (!isClient || status === "loading") return;
 
-    if (!session && pathname !== "/admin/login") {
-      setIsRedirecting(true);
-      router.push("/admin/login");
-    }
-
+ 
     if (session && pathname === "/admin/login") {
-      setIsRedirecting(true);
-      router.push("/admin");
+      router.replace("/admin");
+      return;
     }
-  }, [session, status, pathname, router, isRedirecting]);
 
+    // If not authenticated and not on login page, redirect to login
+    if (!session && pathname !== "/admin/login") {
+      router.replace("/admin/login");
+      return;
+    }
+  }, [session, status, pathname, router, isClient]);
+
+  // Show nothing on server
+  if (!isClient) {
+    return null;
+  }
+
+  // Show loading state
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -37,14 +48,24 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
 
+  // On login page, render without header
   if (pathname === "/admin/login") {
     return <>{children}</>;
   }
 
+  // If not authenticated, show loading (will redirect)
   if (!session) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Redirecting to login...</p>
+        </div>
+      </div>
+    );
   }
 
+  // Authenticated - show content
   return <>{children}</>;
 }
 

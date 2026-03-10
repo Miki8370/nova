@@ -11,7 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CheckCircle2, XCircle, Loader2, LogOut, Home, Image, Package, Calendar, Users, Layout } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card"; // Make sure CardContent is imported here!
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -22,118 +22,105 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function sectionsPage() {
-  const { data: session } = useSession();
+export default function AdminPage() {
+  const { data: session, status } = useSession();
   const [connectionStatus, setConnectionStatus] = useState<'checking' | 'connected' | 'error'>('checking');
   const [activeTab, setActiveTab] = useState("hero");
+  const [mounted, setMounted] = useState(false);
 
+  // Handle mounting to avoid hydration issues
   useEffect(() => {
-    const testConnection = async () => {
-      try {
-        const response = await fetch('/api/content');
-        if (response.ok) {
-          setConnectionStatus('connected');
-        } else {
-          setConnectionStatus('error');
-        }
-      } catch (error) {
-        setConnectionStatus('error');
-      }
-    };
-
-    testConnection();
+    setMounted(true);
   }, []);
 
-  if (connectionStatus === 'checking') {
+  // Only test connection when session is authenticated
+  useEffect(() => {
+    if (status === "authenticated") {
+      testConnection();
+    }
+  }, [status]);
+
+  const testConnection = async () => {
+    try {
+      const response = await fetch('/api/content');
+      if (response.ok) {
+        setConnectionStatus('connected');
+      } else {
+        setConnectionStatus('error');
+      }
+    } catch (error) {
+      setConnectionStatus('error');
+    }
+  };
+
+  if (!mounted) {
+    return null;
+  }
+
+  if (status === "loading") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <Card className="p-12 text-center">
           <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-primary" />
-          <h2 className="text-xl font-semibold mb-2">Connecting to GitHub</h2>
-          <p className="text-muted-foreground">Please wait while we establish connection...</p>
+          <h2 className="text-xl font-semibold mb-2">Loading Session</h2>
+          <p className="text-muted-foreground">Please wait while we load your session...</p>
         </Card>
+      </div>
+    );
+  }
+
+  // If not authenticated, show message (layout will redirect)
+  if (status !== "authenticated") {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+        <Card className="p-12 text-center">
+          <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-primary" />
+          <h2 className="text-xl font-semibold mb-2">Redirecting to Login</h2>
+          <p className="text-muted-foreground">Please wait...</p>
+        </Card>
+      </div>
+    );
+  }
+
+  if (connectionStatus === 'checking') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+        <AdminHeader session={session} />
+        <div className="container mx-auto p-8">
+          <Card className="p-12 text-center">
+            <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-primary" />
+            <h2 className="text-xl font-semibold mb-2">Connecting to GitHub</h2>
+            <p className="text-muted-foreground">Please wait while we establish connection...</p>
+          </Card>
+        </div>
       </div>
     );
   }
 
   if (connectionStatus === 'error') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-        <Card className="p-12 text-center max-w-md">
-          <XCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
-          <h2 className="text-2xl font-bold mb-2">Connection Failed</h2>
-          <p className="text-muted-foreground mb-6">
-            Could not connect to GitHub. Please check your server configuration.
-          </p>
-          <Button onClick={() => window.location.reload()}>
-            Try Again
-          </Button>
-        </Card>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+        <AdminHeader session={session} />
+        <div className="container mx-auto p-8">
+          <Card className="p-12 text-center max-w-md mx-auto">
+            <XCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
+            <h2 className="text-2xl font-bold mb-2">Connection Failed</h2>
+            <p className="text-muted-foreground mb-6">
+              Could not connect to GitHub. Please check your server configuration.
+            </p>
+            <Button onClick={() => window.location.reload()}>
+              Try Again
+            </Button>
+          </Card>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/60 rounded-xl flex items-center justify-center shadow-lg">
-                <Layout className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                  Nova HR CMS
-                </h1>
-                <p className="text-xs text-muted-foreground">Content Management System</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-full border border-green-200">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-xs font-medium text-green-700">Connected</span>
-              </div>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                    <Avatar className="h-10 w-10 border-2 border-primary/20">
-                      <AvatarImage src={session?.user?.image || ''} />
-                      <AvatarFallback className="bg-primary/10 text-primary">
-                        {session?.user?.email?.charAt(0).toUpperCase() || 'A'}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium">Admin User</p>
-                      <p className="text-xs text-muted-foreground">{session?.user?.email}</p>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => window.open('/', '_blank')}>
-                    <Home className="mr-2 h-4 w-4" />
-                    <span>View Site</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem 
-                    onClick={() => signOut({ callbackUrl: "/admin/login" })}
-                    className="text-red-600 focus:text-red-600"
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Logout</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <AdminHeader session={session} />
+      
       <div className="container mx-auto px-6 py-8">
         <Card className="mb-8 bg-gradient-to-r from-primary/5 to-transparent border-primary/10">
           <CardContent className="p-6">
@@ -215,5 +202,69 @@ export default function sectionsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Separate header component for reusability
+function AdminHeader({ session }: { session: any }) {
+  return (
+    <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-20">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/60 rounded-xl flex items-center justify-center shadow-lg">
+              <Layout className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                Nova HR CMS
+              </h1>
+              <p className="text-xs text-muted-foreground">Content Management System</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-full border border-green-200">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span className="text-xs font-medium text-green-700">Connected</span>
+            </div>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                  <Avatar className="h-10 w-10 border-2 border-primary/20">
+                    <AvatarImage src={session?.user?.image || ''} />
+                    <AvatarFallback className="bg-primary/10 text-primary">
+                      {session?.user?.email?.charAt(0).toUpperCase() || 'A'}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium">Admin User</p>
+                    <p className="text-xs text-muted-foreground">{session?.user?.email}</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => window.open('/', '_blank')}>
+                  <Home className="mr-2 h-4 w-4" />
+                  <span>View Site</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={() => signOut({ callbackUrl: "/admin/login" })}
+                  className="text-red-600 focus:text-red-600"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }
