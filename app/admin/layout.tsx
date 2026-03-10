@@ -2,25 +2,29 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
-    if (status === "loading") return;
+    if (status === "loading" || isRedirecting) return;
+
 
     if (!session && pathname !== "/admin/login") {
+      setIsRedirecting(true);
       router.push("/admin/login");
     }
 
     if (session && pathname === "/admin/login") {
+      setIsRedirecting(true);
       router.push("/admin");
     }
-  }, [session, status, pathname, router]);
+  }, [session, status, pathname, router, isRedirecting]);
 
   if (status === "loading") {
     return (

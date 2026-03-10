@@ -13,26 +13,33 @@ export const authOptions: NextAuthOptions = {
         const adminEmail = process.env.ADMIN_EMAIL;
         const adminPassword = process.env.ADMIN_PASSWORD;
         
+        console.log("Login attempt for:", credentials?.email); // Debug
+        
         if (
           credentials?.email === adminEmail && 
           credentials?.password === adminPassword
         ) {
+          console.log("Login successful"); // Debug
           return {
             id: "1",
             email: adminEmail,
             name: "Admin",
           };
         }
+        
+        console.log("Login failed"); // Debug
         return null;
       }
     })
   ],
   pages: {
     signIn: "/admin/login",
-    error: "/admin/login",
   },
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  jwt: {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
@@ -50,4 +57,5 @@ export const authOptions: NextAuthOptions = {
     }
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: true, // Enable debug logs
 };
